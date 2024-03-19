@@ -242,11 +242,18 @@ main() {
 
 # Check if command-line argument is provided
 if [ $# -gt 0 ]; then
-    echo -e "${YELLOW}Command-line argument detected.${NC}"
-    echo -e "${GREEN}Proceeding to the menu function.${NC}"
-    echo 
     series=("$@")
-    main "${series[@]}"
+
+    # Check if the command line series argument is valid.
+    if validate_series "${series[@]}"
+    then
+        echo -e "${YELLOW}Command-line argument detected.${NC}"
+        echo -e "${GREEN}Proceeding to the menu function.${NC}"
+        echo 
+        main "${series[@]}"
+    else
+        echo -e "${RED}Command-line argument input is invalid proceeding to run the script with user input.${NC}"
+    fi
 else
     echo -e "${YELLOW}No command-line argument detected.${NC}"
     echo -e "${YELLOW}Continuing the code normally.${NC}"
