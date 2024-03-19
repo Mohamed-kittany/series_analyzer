@@ -9,6 +9,7 @@ function original_order()
 {
 	local arr_length=${#series[@]}
 
+    # Printing the series
 	for ((i=0; i<$arr_length; i++))
 	do
 		echo -n "${series[$i]} "
@@ -30,7 +31,7 @@ function num_of_elements()
 
 #sort()----------------------------------------------------#
 #input : series of numbers
-#integers output : the series is sorted from low to high 
+#integers output : the series is sorted from low to high value
 #-----------------------------------------------------------#
 function sort() {
     local sorted_array=("$@")
@@ -46,6 +47,7 @@ function sort() {
         done
     done
 
+    # Printing the series 
     for ((m=0; m<length; m++)); do
         echo -n "${sorted_array[$m]} "
     done
@@ -61,6 +63,8 @@ function sort() {
 function max_value()
 {
 	local arr_length=${#series[@]}
+    
+    # Assigning the max value with the first index in the series.
 	local max=${series[0]}
 
 
@@ -80,11 +84,13 @@ function max_value()
 
 #min_value()----------------------------------------------------#
 #input : series of numbers
-#integers output : tminimum value in the series 
+#integers output : minimum value in the series 
 #---------------------------------------------------------------#
 function min_value()
 {
     local arr_length=${#series[@]}
+
+    # Assigning the min value with the first index in the series.
     local min=${series[0]}
 
     for ((i=0; i<$arr_length; i++))
@@ -109,7 +115,8 @@ function sum()
     do
         local sum=$((sum+num))
     done
-    #echo "Sum of the Series = $sum"
+
+    echo "Sum of the Series = $sum"
 }
 
 #average()----------------------------------------------------#
@@ -123,6 +130,7 @@ function average()
     do
         sum=$((sum + num))
     done
+    
     local average=$(printf "%.2f" "$(echo "scale=2; $sum / ${#series[@]}" | bc -l)")
     echo "Average Of the Series=$average"
 }
@@ -148,7 +156,7 @@ display_menu() {
 
 #validate_series()----------------------------------------------------#
 #input : series of numbers
-#integers output : the result of numbers validation
+#integers output : the result of numbers validation (0 = true/success | 1 = false/error)
 #---------------------------------------------------------------------#
 validate_series() {
     local series=("$@") # Local copy of the series array
@@ -181,11 +189,14 @@ input_series() {
     while true; do
         echo "Enter a series of positive numbers separated by space ('exit' to quit):"
         read -ra series
+
         # Check if the user wants to exit
         if [[ "${series[0]}" == "exit" ]]; then
             echo "Exiting."
             exit 0
         fi
+        
+        # Validating the given series.
         if validate_series "${series[@]}"; then
             echo "Series accepted: ${series[*]}"
             break
@@ -220,6 +231,8 @@ main() {
         echo
     done
 }
+
+
 input_series
 # Run the main function
 main
