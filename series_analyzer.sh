@@ -240,7 +240,21 @@ main() {
     done
 }
 
+# Check if command-line argument is provided
+if [ $# -gt 0 ]; then
+    echo -e "${YELLOW}Command-line argument detected.${NC}"
+    echo -e "${GREEN}Proceeding to the menu function.${NC}"
+    echo 
+    series=("$@")
+    main "${series[@]}"
+else
+    echo -e "${YELLOW}No command-line argument detected.${NC}"
+    echo -e "${YELLOW}Continuing the code normally.${NC}"
+    echo
+fi
 
+# Getting the first input from the user after running the script.
 input_series
+
 # Run the main function
 main
