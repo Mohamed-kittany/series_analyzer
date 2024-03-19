@@ -1,5 +1,10 @@
 #! /bin/bash
 
+#Author : salma, mohamed, baraa, areej
+#original_order()----------------------------------------------------#
+#input : series of numbers
+#integers output : the original order of the numbers 
+#--------------------------------------------------------------------#
 function original_order()
 {
 	local arr_length=${#series[@]}
@@ -12,12 +17,21 @@ function original_order()
 	echo
 }
 
-#NumberOfElemnts
+
+#num_of_elements()----------------------------------------------------#
+#input : series of numbers
+#integers output : number of elements in the series
+#---------------------------------------------------------------------#
 function num_of_elements()
 {
     echo "Number of Elements in the Series : ${#series[@]}"
 }
 
+
+#sort()----------------------------------------------------#
+#input : series of numbers
+#integers output : the series is sorted from low to high 
+#-----------------------------------------------------------#
 function sort() {
     local sorted_array=("$@")
     local length=${#sorted_array[@]}
@@ -40,6 +54,10 @@ function sort() {
 }
 
 
+#max_value()----------------------------------------------------#
+#input : series of numbers
+#integers output : maximum value in the series 
+#---------------------------------------------------------------#
 function max_value()
 {
 	local arr_length=${#series[@]}
@@ -60,6 +78,10 @@ function max_value()
 
 
 
+#min_value()----------------------------------------------------#
+#input : series of numbers
+#integers output : tminimum value in the series 
+#---------------------------------------------------------------#
 function min_value()
 {
     local arr_length=${#series[@]}
@@ -75,7 +97,11 @@ function min_value()
     echo "Minimum value is: $min"
 }
 
-#sum
+ 
+#sum()----------------------------------------------------#
+#input : series of numbers
+#integers output : sum of the numbers 
+#---------------------------------------------------------#
 function sum()
 {
     local sum=0
@@ -86,7 +112,10 @@ function sum()
     #echo "Sum of the Series = $sum"
 }
 
-# average
+#average()----------------------------------------------------#
+#input : series of numbers
+#integers output : average of the numbers 
+#-------------------------------------------------------------#
 function average()
 {
     local sum=0
@@ -98,9 +127,10 @@ function average()
     echo "Average Of the Series=$average"
 }
 
-
-
-# Function to display the menu
+#display_menu()----------------------------------------------------#
+#input : none
+#integers output : display the menu 
+#------------------------------------------------------------------#
 display_menu() {
     echo "Series Analyzer Menu:"
     echo "a. Input a Series"
@@ -115,8 +145,11 @@ display_menu() {
     echo
 }
 
-# Function to validate the series
-# 
+
+#validate_series()----------------------------------------------------#
+#input : series of numbers
+#integers output : the result of numbers validation
+#---------------------------------------------------------------------#
 validate_series() {
     local series=("$@") # Local copy of the series array
     local num
@@ -139,7 +172,11 @@ validate_series() {
     return 0 #  0 indicates success
 }
 
-# Function to read series from the user
+
+#input_series()----------------------------------------------------#
+#input : none
+#integers output : validate_series()
+#------------------------------------------------------------------#
 input_series() {
     while true; do
         echo "Enter a series of positive numbers separated by space ('exit' to quit):"
@@ -158,27 +195,11 @@ input_series() {
     done
 }
 
-# Function to validate the series
-validate_series() {
-    local series=("$@")
-    local num
 
-    if [ "${#series[@]}" -lt 3 ]; then
-        echo "Error: At least 3 positive numbers are required."
-        return 1
-    fi
-
-    for num in "${series[@]}"; do
-        if ! [[ "$num" =~ ^[1-9][0-9]*$ ]]; then
-            echo "Error: Each input must be a positive number. Found invalid input: $num"
-            return 1
-        fi
-    done
-
-    return 0
-}
-
-# Main function
+#main()----------------------------------------------------#
+#input : none
+#integers output : display menu 
+#---------------------------------------------------------#
 main() {
 
     while true; do
