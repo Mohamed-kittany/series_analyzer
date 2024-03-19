@@ -1,4 +1,12 @@
-#! /bin/bash
+#!/bin/bash
+
+# Define color escape sequences
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+CYAN='\033[0;36m'
+NC='\033[0m' # No Color
+
 
 #Author : salma, mohamed, baraa, areej
 #original_order()----------------------------------------------------#
@@ -12,7 +20,7 @@ function original_order()
     # Printing the series
 	for ((i=0; i<$arr_length; i++))
 	do
-		echo -n "${series[$i]} "
+		echo -en "${CYAN}${series[$i]} ${NC}"
 	done
 
 	echo
@@ -25,7 +33,7 @@ function original_order()
 #---------------------------------------------------------------------#
 function num_of_elements()
 {
-    echo "Number of Elements in the Series : ${#series[@]}"
+    echo -e "${YELLOW}Number of Elements in the Series : ${#series[@]}${NC}"
 }
 
 
@@ -49,7 +57,7 @@ function sort() {
 
     # Printing the series 
     for ((m=0; m<length; m++)); do
-        echo -n "${sorted_array[$m]} "
+        echo -en "${GREEN}${sorted_array[$m]} ${NC}"
     done
 
     echo
@@ -77,7 +85,7 @@ function max_value()
 	
 		done
 
-		echo "Maximum value is: $max"
+		echo -e "${RED}Maximum value is: $max${NC}"
 }
 
 
@@ -100,7 +108,7 @@ function min_value()
 			let min=${series[$i]}
             fi
         done
-    echo "Minimum value is: $min"
+    echo -e "${RED}Minimum value is: $min${NC}"
 }
 
  
@@ -116,7 +124,7 @@ function sum()
         local sum=$((sum+num))
     done
 
-    echo "Sum of the Series = $sum"
+    echo -e "${YELLOW}Sum of the Series = $sum${NC}"
 }
 
 #average()----------------------------------------------------#
@@ -132,7 +140,7 @@ function average()
     done
     
     local average=$(printf "%.2f" "$(echo "scale=2; $sum / ${#series[@]}" | bc -l)")
-    echo "Average Of the Series=$average"
+    echo -e "${YELLOW}Average Of the Series=$average${NC}"
 }
 
 #display_menu()----------------------------------------------------#
@@ -140,16 +148,16 @@ function average()
 #integers output : display the menu 
 #------------------------------------------------------------------#
 display_menu() {
-    echo "Series Analyzer Menu:"
-    echo "a. Input a Series"
-    echo "b. Display the series in the order it was entered"
-    echo "c. Display the series in sorted order"
-    echo "d. Display the Max value of the series"
-    echo "e. Display the Min value of the series"
-    echo "f. Display the Average of the series"
-    echo "g. Display the Number of elements in the series"
-    echo "h. Display the Sum of the series"
-    echo "i. Exit"
+    echo -e "${GREEN}Series Analyzer Menu:${NC}"
+    echo -e "${CYAN}a.${NC} Input a Series"
+    echo -e "${CYAN}b.${NC} Display the series in the order it was entered"
+    echo -e "${CYAN}c.${NC} Display the series in sorted order"
+    echo -e "${CYAN}d.${NC} Display the Max value of the series"
+    echo -e "${CYAN}e.${NC} Display the Min value of the series"
+    echo -e "${CYAN}f.${NC} Display the Average of the series"
+    echo -e "${CYAN}g.${NC} Display the Number of elements in the series"
+    echo -e "${CYAN}h.${NC} Display the Sum of the series"
+    echo -e "${CYAN}i.${NC} Exit"
     echo
 }
 
@@ -164,7 +172,7 @@ validate_series() {
 
     # Check for minimum count
     if [ "${#series[@]}" -lt 3 ]; then
-        echo "Error: At least 3 positive numbers are required."
+        echo -e "${RED}Error: At least 3 positive numbers are required.${NC}"
         return 1 # Return 1 indicates error
     fi
 
@@ -172,7 +180,7 @@ validate_series() {
     for num in "${series[@]}"; do
         # using regex to check if num is a positive integer
         if ! [[ "$num" =~ ^[1-9][0-9]*$ ]]; then
-            echo "Error: Each input must be a positive number. Found invalid input: $num"
+            echo -e "${RED}Error: Each input must be a positive number. Found invalid input: $num${NC}"
             return 1 #  1 indicates error
         fi
     done
@@ -187,21 +195,21 @@ validate_series() {
 #------------------------------------------------------------------#
 input_series() {
     while true; do
-        echo "Enter a series of positive numbers separated by space ('exit' to quit):"
+        echo -e "${GREEN}Enter a series of positive numbers separated by space ('exit' to quit):${NC}"
         read -ra series
 
         # Check if the user wants to exit
         if [[ "${series[0]}" == "exit" ]]; then
-            echo "Exiting."
+            echo -e "${YELLOW}Exiting.${NC}"
             exit 0
         fi
         
         # Validating the given series.
         if validate_series "${series[@]}"; then
-            echo "Series accepted: ${series[*]}"
+            echo -e "${YELLOW}Series accepted: ${series[*]}${NC}"
             break
         else
-            echo "Invalid input. Please try again."
+            echo -e "${RED}Invalid input. Please try again.${NC}"
         fi
     done
 }
@@ -225,8 +233,8 @@ main() {
             f) average $series;;
             g) num_of_elements $series;;
             h) sum $series;;
-            i) echo "Exiting..."; exit ;;
-            *) echo "Invalid option. Please choose a valid option." ;;
+            i) echo -e "${YELLOW}Exiting...${NC}"; exit ;;
+            *) echo -e "${RED}Invalid option. Please choose a valid option.${NC}" ;;
         esac
         echo
     done
